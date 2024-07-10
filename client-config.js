@@ -4,7 +4,7 @@ import onboarding from './js/client-plugins/onboarding.js'
 // This file is loaded by Silex when the user opens the editor
 // Its path is set in the environment variable SILEX_CLIENT_CONFIG in index.js
 import websiteInfoPlugin from './plugins/client/website-info.js'
-
+import navbar from 'grapesjs-navbar'
 export default async function (config) {
     config.addPlugin(websiteInfoPlugin, {})
     config.addPlugin(onboarding, {})
@@ -27,5 +27,16 @@ export default async function (config) {
             // disableProperties: true,
         },
     })
+
+    config.on('silex:grapesjs:start', () => {
+        // Or change other config from GrapesJs: config.grapesJsConfig.autoLoad = false
+        config.grapesJsConfig.plugins = [{
+            ...config.grapesJsConfig.plugins,
+            navbar
+            // here your plugin as you would in grapesjs config
+        }]
+    })
+
+
     return {}
 }
